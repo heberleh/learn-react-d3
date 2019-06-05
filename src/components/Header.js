@@ -2,6 +2,8 @@ import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import logo from '../logo.svg';
 
+import "./Header.css"
+
 /**
  * The header of the website
  *
@@ -37,9 +39,9 @@ class Header extends Component{
 
     render(){
         return(
-            <div className="App-header d-flex justify-content-center align-self-stretch">
+            <div className="header d-flex justify-content-center align-self-stretch">
                 <div class=" d-flex justify-content-center align-items-center">
-                    <img src={logo} className="App-logo" alt="logo" />
+                    <img src={logo} className="logo" alt="logo" />
                     <span>{this.state.title}</span>
                 </div>                
                 <div class="d-flex justify-content-right align-items-center">
