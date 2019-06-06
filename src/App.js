@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import $ from 'jquery';
 import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import BarChart from './components/BarChart';
 
 class App extends Component {
   constructor(props){
@@ -19,6 +20,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header title={this.title} author={this.author} authorUrl={this.authorUrl}/>
+        <BarChart data={[3, 4, 5]}/>
       </div>
     );
   }

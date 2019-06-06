@@ -40,12 +40,12 @@ class Header extends Component{
     render(){
         return(
             <div className="header d-flex justify-content-center align-self-stretch">
-                <div class=" d-flex justify-content-center align-items-center">
+                <div className=" d-flex justify-content-center align-items-center">
                     <img src={logo} className="logo" alt="logo" />
                     <span>{this.state.title}</span>
                 </div>                
-                <div class="d-flex justify-content-right align-items-center">
-                    <span class="author">
+                <div className="d-flex justify-content-right align-items-center">
+                    <span className="author">
                         <a href={this.state.authorUrl}>
                              {this.state.author} 
                         </a>
