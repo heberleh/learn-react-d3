@@ -16,6 +16,9 @@ class App extends Component {
     this.authorUrl = "https://heberleh.github.io"
   }
   
+
+  // TODO use https://www.npmjs.com/package/alasql for data management
+
   render() {
     return (
       <div className="App">
@@ -27,3 +30,22 @@ class App extends Component {
 }
 
 export default App;
+
+
+// #Marvel Database
+// # Jun 2019
+
+// SELECT ?nameLabel ?conflictLabel
+// WHERE
+// {
+// 	?name wdt:P31 wd:Q1114461;   	
+//          wdt:P1080 wd:Q931597.
+  
+//     ?name wdt:P607 ?conflict.
+// #   
+// #   ?name wdt:P2563 ?skills.
+// #   OPTIONAL {?name wdt:P21 ?gender.
+// #   OPTIONAL {?name wdt:P3417 ?quora.}
+// #   OPTIONAL {?name wdt:P106 ?occupation.}
+// #   
+//   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE]". }
