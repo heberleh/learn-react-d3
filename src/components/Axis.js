@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import * as d3Axis from 'd3-axis'
 import { select as d3Select } from 'd3-selection'
 import PropTypes from 'prop-types'
+import Utils from '../Utils'
 
 import './Axis.css'
 
@@ -17,19 +18,23 @@ class Axis extends Component{
     
     renderAxis(){
         const axisType = `axis${this.props.orient}`
+
         const axis = d3Axis[axisType]()
-                        .scale(this.props.scale)
-                        .tickSize(-this.props.tickSize)
-                        .tickPadding(this.props.tickPadding)
-                        .ticks(this.props.ticks)
-        
+                .scale(this.props.scale)
+                .tickSize(-this.props.tickSize)
+                .tickPadding(this.props.tickPadding)
+                .ticks(this.props.ticks)
+        if (axis.props.scale.type == "Band"){
+            axis.tickFormat((d) => this.props.dataModel.bandFunc(this.props.dataModel.data[d]))
+        }
+
         d3Select(this.axisElement).call(axis)
     }
 
     render(){        
         return (
         <g
-            className={`Axis Axis-${this.props.orient}`}
+            className={`Axis Axis-${this.props.orient} Axis-${this.props.scale.type}`}
             ref={(el) => { this.axisElement = el; }}
             transform={this.props.translate}
           />
@@ -55,7 +60,7 @@ Axis.propTypes = {
     orient: PropTypes.string.isRequired,
     scale: PropTypes.func.isRequired,
     translate: PropTypes.string.isRequired,
-    thickSize: PropTypes.number.isRequired
+    tickSize: PropTypes.number.isRequired
 }
 
 export default Axis

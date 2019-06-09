@@ -1,15 +1,14 @@
 
 import React from 'react'
-import Axis from '../Axis'
+import Axis from './Axis'
 
-export default ({ scales, margins, svgDimensions, ticks}) => {
-  const { height, width } = svgDimensions
+export default ({ scales, margins, svgDimensions, ticks, dataModel}) => {
 
   const xProps = {
     orient: 'Bottom',
     scale: scales.xScale,
-    translate: `translate(0, ${height - margins.bottom})`,
-    tickSize: height - margins.top - margins.bottom,
+    translate: `translate(0, ${svgDimensions.height - margins.bottom})`,
+    tickSize: svgDimensions.height - margins.top - margins.bottom,
     ticks: ticks.x.ticks,
     tickPadding: ticks.x.tickPadding
   }
@@ -18,9 +17,10 @@ export default ({ scales, margins, svgDimensions, ticks}) => {
     orient: 'Left',
     scale: scales.yScale,
     translate: `translate(${margins.left}, 0)`,
-    tickSize: width - margins.left - margins.right,
+    tickSize: svgDimensions.width - margins.left - margins.right,
     ticks: ticks.y.ticks,
-    tickPadding: ticks.y.tickPadding
+    tickPadding: ticks.y.tickPadding,
+    dataModel: dataModel,
   }
 
   return (
@@ -29,4 +29,5 @@ export default ({ scales, margins, svgDimensions, ticks}) => {
       <Axis {...yProps} />
     </g>
   )
+
 }

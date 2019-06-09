@@ -8,37 +8,19 @@ import './BarChart.css'
 // import {max} from 'd3-array
 import {axisLeft, axisBottom} from 'd3-axis'
 import PropTypes from 'prop-types'
-import {scaleOrdinal, scaleLinear} from 'd3-scale'
+import {scaleLinear, scaleBand} from 'd3-scale'
 import Axes from './Axes'
-/**
- * Set up the axis
- */
-function Axes(props){
-}
-
-/**
- * Set up the bars
- */
-function Bars(props){
-    return <circle cx="300" cy="300" r='5px'></circle>;
-}
-
-function BandLabels(props){
-    return props.dataModel.data.map( (d,i)=>
-        <text x={props.xScale(props.dataModel.valueFunc(d))} 
-              y={props.yScale(props.dataModel.bandFunc(d))} 
-              key={i}> 
-                        {props.dataModel.bandFunc(d)} 
-        </text>
-    )
-}
+import Bars from './Bars'
 
 
 class BarChart extends Component{
     constructor(props){        
         super(props)
         this.xScale = scaleLinear()
-        this.yScale = scaleOrdinal()     
+        this.xScale.type = "Linear"
+
+        this.yScale = scaleBand()
+        this.yScale.type = "Band"
     }    
 
     render(){
@@ -46,32 +28,51 @@ class BarChart extends Component{
         
         const maxValue = Math.max(...props.dataModel.data.map(d=>props.dataModel.valueFunc(d)))  
                 
-        const yScale = this.yScale                        
-                        .domain(props.dataModel.data.map(props.dataModel.bandFunc))
+        const yScale = this.yScale 
+                        .padding([.5])                      
+                        .domain([0, props.dataModel.data.length])
                         .range([props.height - props.margins.bottom, props.margins.top])
         
-        const xScale = this.xScale
-                        .domain(props.dataModel.data.map(props.dataModel.valueFunc))
-                        .range([props.margins.left, maxValue - props.margins.right])
+        console.log(yScale(props.dataModel.bandFunc(props.dataModel.data[3])))
+        console.log(yScale(props.dataModel.bandFunc(props.dataModel.data[4])))
+        console.log(yScale(props.dataModel.bandFunc(props.dataModel.data[5])))
 
+        const xScale = this.xScale
+                        .domain([0, maxValue])
+                        .range([props.margins.left, props.width - props.margins.right])
+
+        const ticks ={
+            x: {ticks:[6], tickPadding:12},
+            y: {ticks:[6], tickPadding:12}
+        }
 
         return <svg width={props.width} 
                     height={props.height}>
-                                      
-                    <circle  cx="200" cy="300" r='5px'></circle>
-                    {console.log(props.dataModel.data[0])}
-                    
-                    {/* <Axes xScale={xScale} yScale={yScale} /> */}
-                    {/* <Bars dataModel={props.dataModel}/> */}
-                    <BandLabels dataModel={props.dataModel} yScale={yScale} xScale={xScale}/>
+
+                    <Axes
+                        scales={{xScale, yScale}}
+                        margins={props.margins} 
+                        svgDimensions={{width:props.width, height:props.height}} 
+                        ticks={ticks}
+                        dataModel={props.dataModel}
+                    />
+
+                    <Bars
+                        scales={{xScale, yScale}}
+                        margins={props.margins}
+                        dataModel={props.dataModel}
+                        maxValue={maxValue}
+                        svgDimensions={{width:props.width, height:props.height}} 
+                    />
+
                 </svg>
     }
 }
 
 BarChart.defaultProps = {
-    width: 500,
-    height: 500,
-    margins: {top: 50, right: 20, bottom: 100, left: 60 },
+    width: 700,
+    height: 1200,
+    margins: {top: 50, right: 20, bottom: 100, left: 200 },
     parsPadding: 0.5
 }
 

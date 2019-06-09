@@ -21,7 +21,7 @@ class ComicsQueries{
         let query = "SELECT DISTINCT a.abilityLabel AS ability, COUNT(c.char) AS total, a.ability AS url\
                      FROM character c JOIN abilities a ON a.char = c.char\
                      GROUP BY a.ability, a.abilityLabel\
-                     ORDER BY total DESC"
+                     ORDER BY total"
 
         return {
             data: comicsDB.exec(query), 
