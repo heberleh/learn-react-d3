@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
-import './App.css';
-import Header from './components/Header';
+import React, { Component } from 'react'
+import './App.css'
+import Header from './components/Header'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from 'jquery';
-import Popper from 'popper.js';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
-import BarChart from './components/BarChart';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import $ from 'jquery'
+import Popper from 'popper.js'
+import 'bootstrap/dist/js/bootstrap.bundle.min'
+import BarChart from './components/BarChart'
+
+import ComicsQueries from './ComicsQueries'
 
 class App extends Component {
   constructor(props){
@@ -17,13 +19,16 @@ class App extends Component {
   }
   
 
-  // TODO use https://www.npmjs.com/package/alasql for data management
 
   render() {
+
+
     return (
       <div className="App">
         <Header title={this.title} author={this.author} authorUrl={this.authorUrl}/>
-        <BarChart data={[3, 4, 5]}/>
+       
+        <BarChart dataModel={ComicsQueries.skillsDistribution()}/>
+
       </div>
     );
   }
