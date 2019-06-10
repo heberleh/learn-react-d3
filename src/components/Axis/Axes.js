@@ -19,8 +19,7 @@ export default ({ scales, margins, svgDimensions, ticks, dataModel}) => {
     translate: `translate(${margins.left}, 0)`,
     tickSize: svgDimensions.width - margins.left - margins.right,
     ticks: ticks.y.ticks,
-    tickPadding: ticks.y.tickPadding,
-    dataModel: dataModel,
+    tickPadding: ticks.y.tickPadding
   }
 
   return (

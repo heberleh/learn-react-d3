@@ -28,17 +28,21 @@ class Bars extends Component{
               key={dataModel.bandFunc(d)+dataModel.valueFunc(d)}
               x={margins.left}
               y={yScale(dataModel.bandFunc(d))}
-              width={scales.xScale(dataModel.valueFunc(d))-margins.left}
+              width={5+scales.xScale(dataModel.valueFunc(d))-margins.left}
               height={yScale.bandwidth()}
               fill={this.colorScale(dataModel.valueFunc(d))}
               skill={dataModel.bandFunc(d)}
               total={dataModel.valueFunc(d)}
+            
+              data-tip={"<div style='max-width:200px'><b>"+dataModel.bandFunc(d)+"</b><br>"+dataModel.valueFunc(d)+"<br>Info: "+dataModel.descriptionFunc(d)}
+              data-for='barTooltip'
+              data-html={true}
             />,
           )
         )
     
-        return (
-          <g>{bars}</g>
+        return (      
+          <g>{bars}</g>       
         )
       }
 

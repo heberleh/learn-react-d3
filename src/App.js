@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import './App.css'
-import Header from './components/Header'
+import Header from './components/ReactD3/Header'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import $ from 'jquery'
 import Popper from 'popper.js'
 import 'bootstrap/dist/js/bootstrap.bundle.min'
-import BarChart from './components/BarChart'
+import BarChart from './components/BarChart/BarChart'
 
 import ComicsQueries from './ComicsQueries'
 
@@ -27,8 +27,14 @@ class App extends Component {
       <div className="App">
         <Header title={this.title} author={this.author} authorUrl={this.authorUrl}/>
        
-        <BarChart dataModel={ComicsQueries.skillsDistribution()}/>
+       <div class="row">
 
+       </div>
+        <div class="col-md-6">
+          <BarChart dataModel={ComicsQueries.skillsDistribution()}/>        
+        </div>
+        <div class="col-md-6">          
+        </div>
       </div>
     );
   }

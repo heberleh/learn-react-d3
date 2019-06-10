@@ -9,9 +9,10 @@ import './BarChart.css'
 import {axisLeft, axisBottom} from 'd3-axis'
 import PropTypes from 'prop-types'
 import {scaleLinear, scaleBand} from 'd3-scale'
-import Axes from './Axes'
-import Bars from './Bars'
-
+import Axes from '../Axis/Axes'
+import Bars from '../Bars/Bars'
+import ResponsiveWrapper from '../ResponsiveWrapper'
+import ReactTooltip from 'react-tooltip'
 
 class BarChart extends Component{
     constructor(props){        
@@ -30,13 +31,9 @@ class BarChart extends Component{
                 
         const yScale = this.yScale 
                         .padding([.5])                      
-                        .domain([0, props.dataModel.data.length])
+                        .domain(props.dataModel.data.map(d => props.dataModel.bandFunc(d)))
                         .range([props.height - props.margins.bottom, props.margins.top])
-        
-        console.log(yScale(props.dataModel.bandFunc(props.dataModel.data[3])))
-        console.log(yScale(props.dataModel.bandFunc(props.dataModel.data[4])))
-        console.log(yScale(props.dataModel.bandFunc(props.dataModel.data[5])))
-
+               
         const xScale = this.xScale
                         .domain([0, maxValue])
                         .range([props.margins.left, props.width - props.margins.right])
@@ -46,26 +43,37 @@ class BarChart extends Component{
             y: {ticks:[6], tickPadding:12}
         }
 
-        return <svg width={props.width} 
-                    height={props.height}>
+        return (
+                <div>
+                    <svg width={props.width} 
+                        height={props.height}>
 
-                    <Axes
-                        scales={{xScale, yScale}}
-                        margins={props.margins} 
-                        svgDimensions={{width:props.width, height:props.height}} 
-                        ticks={ticks}
-                        dataModel={props.dataModel}
-                    />
+                        <Axes
+                            scales={{xScale, yScale}}
+                            margins={props.margins} 
+                            svgDimensions={{width:props.width, height:props.height}} 
+                            ticks={ticks}
+                            dataModel={props.dataModel}
+                        />
 
-                    <Bars
-                        scales={{xScale, yScale}}
-                        margins={props.margins}
-                        dataModel={props.dataModel}
-                        maxValue={maxValue}
-                        svgDimensions={{width:props.width, height:props.height}} 
-                    />
+                        <Bars
+                            scales={{xScale, yScale}}
+                            margins={props.margins}
+                            dataModel={props.dataModel}
+                            maxValue={maxValue}
+                            svgDimensions={{width:props.width, height:props.height}} 
+                        />
 
-                </svg>
+                    </svg>
+                    <ReactTooltip 
+                            id='barTooltip'
+                            html={true} 
+                            delayHide={350}
+                            delayShow={300}
+                            delayUpdate={300} 
+                            border={true}/>
+                </div>                
+            )
     }
 }
 
@@ -84,4 +92,4 @@ BarChart.propTypes ={
     barsPadding: PropTypes.number
 };
 
-export default BarChart;
+export default ResponsiveWrapper(BarChart);

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import * as d3Axis from 'd3-axis'
 import { select as d3Select } from 'd3-selection'
 import PropTypes from 'prop-types'
-import Utils from '../Utils'
+import Utils from '../../Utils'
 
 import './Axis.css'
 
@@ -24,9 +24,6 @@ class Axis extends Component{
                 .tickSize(-this.props.tickSize)
                 .tickPadding(this.props.tickPadding)
                 .ticks(this.props.ticks)
-        if (axis.props.scale.type == "Band"){
-            axis.tickFormat((d) => this.props.dataModel.bandFunc(this.props.dataModel.data[d]))
-        }
 
         d3Select(this.axisElement).call(axis)
     }
