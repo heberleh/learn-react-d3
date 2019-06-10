@@ -33,6 +33,46 @@ class ComicsQueries{
             }
     }
 
+    static skillsDistributionByGender(){
+        let gendersWithLabels = ["male", "male organism", "female", "female organism", "neutral sex", "hermaphrodite", "genderfluid", "transgender female", "agender", "non-binary"]
+        
+        let query = `SELECT LOWER (a.abilityLabel) AS ability,\
+                            a.abilityDescription   AS description,\
+                            g.genderLabel          AS gender,\
+                            COUNT(c.char)          AS total\
+                     FROM character c JOIN abilities a ON a.char = c.char\
+                                      LEFT JOIN gender g\
+                     WHERE g.gender IN ("male", "male organism", "female", "female organism", "neutral sex", "hermaphrodite", "genderfluid", "transgender female", "agender", "non-binary")\
+                     GROUP BY LOWER (a.abilityLabel), a.abilityDescription, g.genderLabel\
+                     ORDER BY total`
+
+        return {
+            data: comicsDB.exec(query), 
+            bandFunc: d=>d.ability, 
+            valueFunc: d=>d.total, 
+            urlFunc: d=>d.url,
+            descriptionFunc: d=>d.description
+        }
+    }
+
+    static findGenders(){
+        let query = "SELECT DISTINCT genderLabel from gender"
+        return {data: comicsDB.exec(query)}
+        // == Result == kown = []
+        // male              
+        // male organism     
+        // female            
+        // female organism   
+        // neutral sex       
+        // hermaphrodite     
+        // genderfluid       
+        // transgender female
+        // agender           
+        // t1331922231       
+        // t1300761634       
+        // non-binary        
+        // t1435955685  
+    }
 }
 
 export default ComicsQueries;
