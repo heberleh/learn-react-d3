@@ -35,22 +35,60 @@ class ComicsQueries{
 
     static skillsDistributionByGender(){
         let gendersWithLabels = ["male", "male organism", "female", "female organism", "neutral sex", "hermaphrodite", "genderfluid", "transgender female", "agender", "non-binary"]
+        //WHERE gender IN ("male", "male organism", "female", "female organism", "neutral sex", "hermaphrodite", "genderfluid", "transgender female", "agender", "non-binary")\
         
-        let query = `SELECT LOWER (a.abilityLabel) AS ability,\
+        let query = `SELECT LOWER (a.abilityLabel) AS abilityLabel,\
                             a.abilityDescription   AS description,\
-                            g.genderLabel          AS gender,\
+                            LOWER (g.genderLabel)  AS genderLabel,\
                             COUNT(c.char)          AS total\
-                     FROM character c JOIN abilities a ON a.char = c.char\
-                                      LEFT JOIN gender g\
-                     WHERE g.gender IN ("male", "male organism", "female", "female organism", "neutral sex", "hermaphrodite", "genderfluid", "transgender female", "agender", "non-binary")\
-                     GROUP BY LOWER (a.abilityLabel), a.abilityDescription, g.genderLabel\
-                     ORDER BY total`
+                     FROM character c 
+                            JOIN      abilities a ON a.char = c.char\
+                            LEFT JOIN gender    g ON c.char = g.char\                    
+                     GROUP BY LOWER (a.abilityLabel), a.abilityDescription, LOWER (g.genderLabel)\
+                     ORDER BY abilityLabel`
+
+
+        let data = comicsDB.exec(query)        
+        let newData = {}
+        let allGenders = new Set()
+        let allGendersTotals = {}        
+        data.forEach(row => {
+            if (row.abilityLabel in newData){
+                newData[row.abilityLabel].values[row.genderLabel] = row.total
+            } else{
+                let node = {values: {}, description: row.description}
+                node.values[row.genderLabel] = row.total
+                newData[row.abilityLabel] = node
+            }
+
+            !(row.genderLabel in allGenders) && allGenders.add(row.genderLabel)
+            row.genderLabel in allGenders? allGendersTotals += row.total : allGendersTotals[row.genderLabel] = row.total
+        });       
+
+        //allGenders = Array.from(allGenders)
+        // order
+        allGenders = ['male', 'female', 'transgender female', 'agender', undefined ] 
+
+        let rows = []
+        for (let ability in newData){
+            let row = {description: newData[ability].description, ability: ability, values: []}
+            for (let i in allGenders){
+                let gender = allGenders[i]
+                if (gender in newData[ability].values){
+                    row.values.push(newData[ability].values[gender])
+                }else{
+                    row.values.push(0)
+                }
+            }
+            rows.push(row)
+        }
 
         return {
-            data: comicsDB.exec(query), 
+            data: rows, 
+            classes: allGenders,
             bandFunc: d=>d.ability, 
-            valueFunc: d=>d.total, 
-            urlFunc: d=>d.url,
+            valueFunc: d=>d.values, 
+            urlFunc: d=>'',
             descriptionFunc: d=>d.description
         }
     }
