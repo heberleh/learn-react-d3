@@ -36,11 +36,11 @@ class BarChart extends Component{
                
         const xScale = this.xScale
                         .domain([0, maxValue])
-                        .range([props.margins.left, props.width - props.margins.right])
+                        .range([props.margins.left+5, props.width - props.margins.right])
 
         const ticks ={
-            x: {ticks:[6], tickPadding:12},
-            y: {ticks:[6], tickPadding:12}
+            x: {ticks:[5], tickPadding:6},
+            y: {ticks:[], tickPadding:12}
         }
 
         return (
@@ -56,7 +56,7 @@ class BarChart extends Component{
                             dataModel={props.dataModel}
                         />
 
-                        <Bars
+                        <Bars                            
                             scales={{xScale, yScale}}
                             margins={props.margins}
                             dataModel={props.dataModel}

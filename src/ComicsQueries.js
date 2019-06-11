@@ -65,9 +65,9 @@ class ComicsQueries{
             row.genderLabel in allGenders? allGendersTotals += row.total : allGendersTotals[row.genderLabel] = row.total
         });       
 
-        //allGenders = Array.from(allGenders)
-        // order
-        allGenders = ['male', 'female', 'transgender female', 'agender', undefined ] 
+        // Sort by gender
+        allGenders = Array.from(allGenders)
+        allGenders.sort((a,b) =>allGendersTotals[b]-allGendersTotals[a])        
 
         let rows = []
         for (let ability in newData){
@@ -82,10 +82,13 @@ class ComicsQueries{
             }
             rows.push(row)
         }
-
+        
+        // Sor by ability
+        rows.sort((d1, d2) => d2.values.reduce((a,b)=>a+b) - d1.values.reduce((a,b)=>a+b))
+        
         return {
             data: rows, 
-            classes: allGenders,
+            labels: allGenders,
             bandFunc: d=>d.ability, 
             valueFunc: d=>d.values, 
             urlFunc: d=>'',
@@ -97,19 +100,19 @@ class ComicsQueries{
         let query = "SELECT DISTINCT genderLabel from gender"
         return {data: comicsDB.exec(query)}
         // == Result == kown = []
-        // male              
-        // male organism     
-        // female            
-        // female organism   
-        // neutral sex       
-        // hermaphrodite     
-        // genderfluid       
+        // male     
+        // male organism
+        // female   
+        // female organism
+        // neutral sex
+        // hermaphrodite
+        // genderfluid
         // transgender female
-        // agender           
-        // t1331922231       
-        // t1300761634       
-        // non-binary        
-        // t1435955685  
+        // agender
+        // t1331922231
+        // t1300761634
+        // non-binary   
+        // t1435955685
     }
 }
 

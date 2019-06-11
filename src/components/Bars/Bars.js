@@ -12,8 +12,8 @@ class Bars extends Component{
         super(props)
     
         this.colorScale = scaleLinear()
-          .domain([0, this.props.maxValue])
-          .range(['#F3E5F5', '#7B1FA2'])
+          .domain([0, this.props.maxValue/10, this.props.maxValue])
+          .range(['#E8895B', '#38397C', '#10101C'])
           .interpolate(interpolateLab)
       }
     
@@ -28,7 +28,7 @@ class Bars extends Component{
               key={dataModel.bandFunc(d)+dataModel.valueFunc(d)}
               x={margins.left}
               y={yScale(dataModel.bandFunc(d))}
-              width={5+scales.xScale(dataModel.valueFunc(d))-margins.left}
+              width={dataModel.valueFunc(d)==0? 0: xScale(dataModel.valueFunc(d))-margins.left}
               height={yScale.bandwidth()}
               fill={this.colorScale(dataModel.valueFunc(d))}
               skill={dataModel.bandFunc(d)}

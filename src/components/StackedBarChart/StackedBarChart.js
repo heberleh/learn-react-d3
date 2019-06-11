@@ -3,18 +3,18 @@
 
 
 import React, {Component} from 'react'
-import './BarChart.css'
+import './StackedBarChart.css'
 // import {scaleLinear} from 'd3-scale'
 // import {max} from 'd3-array
 import {axisLeft, axisBottom} from 'd3-axis'
 import PropTypes from 'prop-types'
 import {scaleLinear, scaleBand} from 'd3-scale'
 import Axes from '../Axis/Axes'
-import Bars from '../Bars/Bars'
+import StackedBars from '../Bars/StackedBars'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import ReactTooltip from 'react-tooltip'
 
-class BarChart extends Component{
+class StackedBarChart extends Component{
     constructor(props){        
         super(props)
         this.xScale = scaleLinear()
@@ -27,7 +27,10 @@ class BarChart extends Component{
     render(){
         const props = this.props
         
-        const maxValue = Math.max(...props.dataModel.data.map(d=>props.dataModel.valueFunc(d)))  
+        const maxValue = Math.max(...props.dataModel.data.map(
+                                        // list of values [3, 4, 5] :: [label1, label2, label3]
+                                        d=>props.dataModel.valueFunc(d) 
+                                                .reduce((a,b)=>a+b))) // sum values
                 
         const yScale = this.yScale 
                         .padding([.5])                      
@@ -56,7 +59,8 @@ class BarChart extends Component{
                             dataModel={props.dataModel}
                         />
 
-                        <Bars
+                        <StackedBars
+                            colorsVector={['#10101C', '#38397C', '#8D3340', '#E8895B', '#A2DA3D', '#EFF4C3']}
                             scales={{xScale, yScale}}
                             margins={props.margins}
                             dataModel={props.dataModel}
@@ -77,14 +81,14 @@ class BarChart extends Component{
     }
 }
 
-BarChart.defaultProps = {
+StackedBarChart.defaultProps = {
     width: 700,
     height: 1200,
     margins: {top: 50, right: 20, bottom: 100, left: 200 },
     parsPadding: 0.5
 }
 
-BarChart.propTypes ={
+StackedBarChart.propTypes ={
     dataModel: PropTypes.object.isRequired,
     width: PropTypes.number,
     height: PropTypes.number,
@@ -92,4 +96,4 @@ BarChart.propTypes ={
     barsPadding: PropTypes.number
 };
 
-export default ResponsiveWrapper(BarChart);
+export default ResponsiveWrapper(StackedBarChart);

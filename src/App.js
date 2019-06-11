@@ -9,6 +9,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min'
 import BarChart from './components/BarChart/BarChart'
 
 import ComicsQueries from './ComicsQueries'
+import StackedBarChart from './components/StackedBarChart/StackedBarChart';
 
 class App extends Component {
   constructor(props){
@@ -29,12 +30,16 @@ class App extends Component {
        
        <div class="row">
 
-       </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
           <BarChart dataModel={ComicsQueries.skillsDistribution()}/>        
         </div>
-        <div class="col-md-6">          
+
+        <div class="col-md-8">          
+          <StackedBarChart dataModel={ComicsQueries.skillsDistributionByGender()}/> 
         </div>
+
+       </div>
+       
       </div>
     );
   }
