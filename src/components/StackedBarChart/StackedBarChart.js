@@ -36,7 +36,7 @@ class StackedBarChart extends Component{
                
         const xScale = this.xScale
                         .domain([0, maxValue])
-                        .range([0, props.width - props.margins.right])
+                        .range([0, props.width - props.margins.right - props.margins.left])
 
         const ticks ={
             x: {ticks:[6], tickPadding:12},
@@ -57,7 +57,8 @@ class StackedBarChart extends Component{
                         />
 
                         <StackedBars
-                            colorsVector={['#8D3340', '#E8895B', '#A2DA3D', '#EFF4C3', '#38397C', '#10101C']}
+                                                                // #5cb5d8 #61f574 #f17341
+                            colorsVector={['#2a2b83', '#ac4a59', '#5cb5d8', '#61f574', '#f17341']}//['#8D3340', '#E8895B', '#858685', '#A2DA3D', '#38397C', '#10101C']}
                             scales={{xScale, yScale}}
                             margins={props.margins}
                             dataModel={props.dataModel}

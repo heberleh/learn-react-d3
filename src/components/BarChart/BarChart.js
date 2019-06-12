@@ -33,7 +33,7 @@ class BarChart extends Component{
                
         const xScale = this.xScale
                         .domain([0, maxValue])
-                        .range([4, props.width - props.margins.right])
+                        .range([0, props.width - props.margins.right - props.margins.left])
 
         const ticks ={
             x: {ticks:[5], tickPadding:6},

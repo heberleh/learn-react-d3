@@ -24,13 +24,15 @@ class App extends Component {
       <div className="App">
         <Header title={this.title} author={this.author} authorUrl={this.authorUrl}/>
        
+ 
+
        <div class="row">
 
-        <div class="col-md-3">
+        <div class="col-md-3">          
           <BarChart dataModel={ComicsQueries.skillsDistribution()}/>        
         </div>
 
-        <div class="col-md-8">          
+        <div class="col-md-9">          
           <StackedBarChart dataModel={ComicsQueries.skillsDistributionByGender()}/> 
         </div>
 

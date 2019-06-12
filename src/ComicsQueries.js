@@ -81,7 +81,7 @@ class ComicsQueries{
         }
         
         // Sor by ability
-        rows.sort((d1, d2) => d2.values.reduce((a,b)=>a+b) - d1.values.reduce((a,b)=>a+b))
+        rows.sort((d1, d2) => d1.values.reduce((a,b)=>a+b) - d2.values.reduce((a,b)=>a+b))
         
         return {
             data: rows, 
