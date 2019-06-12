@@ -4,9 +4,6 @@
 
 import React, {Component} from 'react'
 import './StackedBarChart.css'
-// import {scaleLinear} from 'd3-scale'
-// import {max} from 'd3-array
-import {axisLeft, axisBottom} from 'd3-axis'
 import PropTypes from 'prop-types'
 import {scaleLinear, scaleBand} from 'd3-scale'
 import Axes from '../Axis/Axes'
@@ -39,7 +36,7 @@ class StackedBarChart extends Component{
                
         const xScale = this.xScale
                         .domain([0, maxValue])
-                        .range([props.margins.left, props.width - props.margins.right])
+                        .range([0, props.width - props.margins.right])
 
         const ticks ={
             x: {ticks:[6], tickPadding:12},
@@ -60,7 +57,7 @@ class StackedBarChart extends Component{
                         />
 
                         <StackedBars
-                            colorsVector={['#10101C', '#38397C', '#8D3340', '#E8895B', '#A2DA3D', '#EFF4C3']}
+                            colorsVector={['#8D3340', '#E8895B', '#A2DA3D', '#EFF4C3', '#38397C', '#10101C']}
                             scales={{xScale, yScale}}
                             margins={props.margins}
                             dataModel={props.dataModel}
@@ -70,11 +67,8 @@ class StackedBarChart extends Component{
 
                     </svg>
                     <ReactTooltip 
-                            id='barTooltip'
+                            id='barTooltipStackedBarChart'
                             html={true} 
-                            delayHide={350}
-                            delayShow={300}
-                            delayUpdate={300} 
                             border={true}/>
                 </div>                
             )

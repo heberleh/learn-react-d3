@@ -1,4 +1,3 @@
-
 const comicsDB = require('comics-characters-js-database/src/ComicsDB')
 
 class ComicsQueries{
@@ -34,8 +33,6 @@ class ComicsQueries{
     }
 
     static skillsDistributionByGender(){
-        let gendersWithLabels = ["male", "male organism", "female", "female organism", "neutral sex", "hermaphrodite", "genderfluid", "transgender female", "agender", "non-binary"]
-        //WHERE gender IN ("male", "male organism", "female", "female organism", "neutral sex", "hermaphrodite", "genderfluid", "transgender female", "agender", "non-binary")\
         
         let query = `SELECT LOWER (a.abilityLabel) AS abilityLabel,\
                             a.abilityDescription   AS description,\
@@ -43,7 +40,7 @@ class ComicsQueries{
                             COUNT(c.char)          AS total\
                      FROM character c 
                             JOIN      abilities a ON a.char = c.char\
-                            LEFT JOIN gender    g ON c.char = g.char\                    
+                            LEFT JOIN gender    g ON c.char = g.char\
                      GROUP BY LOWER (a.abilityLabel), a.abilityDescription, LOWER (g.genderLabel)\
                      ORDER BY abilityLabel`
 

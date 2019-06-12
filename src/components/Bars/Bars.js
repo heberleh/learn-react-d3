@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import * as d3Axis from 'd3-axis'
-import { select as d3Select } from 'd3-selection'
-import PropTypes from 'prop-types'
 import { scaleLinear } from 'd3-scale'
 import { interpolateLab } from 'd3-interpolate'
 
@@ -22,20 +19,27 @@ class Bars extends Component{
         const { xScale, yScale } = scales
         const { width, height } = svgDimensions
     
+        function getTooltipHtml(d){
+          return "<div style='max-width:200px'><b>"+
+                  dataModel.bandFunc(d)+"</b><br>"+
+                  dataModel.valueFunc(d)+
+                  "<br>Info: "+dataModel.descriptionFunc(d)
+        }
+
         const bars = (
           dataModel.data.map(d =>
             <rect
               key={dataModel.bandFunc(d)+dataModel.valueFunc(d)}
               x={margins.left}
               y={yScale(dataModel.bandFunc(d))}
-              width={dataModel.valueFunc(d)==0? 0: xScale(dataModel.valueFunc(d))-margins.left}
+              width={dataModel.valueFunc(d)==0? 0: xScale(dataModel.valueFunc(d))}
               height={yScale.bandwidth()}
               fill={this.colorScale(dataModel.valueFunc(d))}
               skill={dataModel.bandFunc(d)}
               total={dataModel.valueFunc(d)}
             
-              data-tip={"<div style='max-width:200px'><b>"+dataModel.bandFunc(d)+"</b><br>"+dataModel.valueFunc(d)+"<br>Info: "+dataModel.descriptionFunc(d)}
-              data-for='barTooltip'
+              data-tip={getTooltipHtml(d)}
+              data-for='barTooltipBarChart'
               data-html={true}
             />,
           )
