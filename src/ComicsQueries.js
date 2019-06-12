@@ -1,4 +1,3 @@
-
 const comicsDB = require('comics-characters-js-database/src/ComicsDB')
 
 class ComicsQueries{
@@ -34,8 +33,6 @@ class ComicsQueries{
     }
 
     static skillsDistributionByGender(){
-        let gendersWithLabels = ["male", "male organism", "female", "female organism", "neutral sex", "hermaphrodite", "genderfluid", "transgender female", "agender", "non-binary"]
-        //WHERE gender IN ("male", "male organism", "female", "female organism", "neutral sex", "hermaphrodite", "genderfluid", "transgender female", "agender", "non-binary")\
         
         let query = `SELECT LOWER (a.abilityLabel) AS abilityLabel,\
                             a.abilityDescription   AS description,\
@@ -43,7 +40,7 @@ class ComicsQueries{
                             COUNT(c.char)          AS total\
                      FROM character c 
                             JOIN      abilities a ON a.char = c.char\
-                            LEFT JOIN gender    g ON c.char = g.char\                    
+                            LEFT JOIN gender    g ON c.char = g.char\
                      GROUP BY LOWER (a.abilityLabel), a.abilityDescription, LOWER (g.genderLabel)\
                      ORDER BY abilityLabel`
 
@@ -65,9 +62,9 @@ class ComicsQueries{
             row.genderLabel in allGenders? allGendersTotals += row.total : allGendersTotals[row.genderLabel] = row.total
         });       
 
-        //allGenders = Array.from(allGenders)
-        // order
-        allGenders = ['male', 'female', 'transgender female', 'agender', undefined ] 
+        // Sort by gender
+        allGenders = Array.from(allGenders)
+        allGenders.sort((a,b) =>allGendersTotals[b]-allGendersTotals[a])        
 
         let rows = []
         for (let ability in newData){
@@ -82,10 +79,13 @@ class ComicsQueries{
             }
             rows.push(row)
         }
-
+        
+        // Sor by ability
+        rows.sort((d1, d2) => d1.values.reduce((a,b)=>a+b) - d2.values.reduce((a,b)=>a+b))
+        
         return {
             data: rows, 
-            classes: allGenders,
+            labels: allGenders,
             bandFunc: d=>d.ability, 
             valueFunc: d=>d.values, 
             urlFunc: d=>'',
@@ -97,19 +97,19 @@ class ComicsQueries{
         let query = "SELECT DISTINCT genderLabel from gender"
         return {data: comicsDB.exec(query)}
         // == Result == kown = []
-        // male              
-        // male organism     
-        // female            
-        // female organism   
-        // neutral sex       
-        // hermaphrodite     
-        // genderfluid       
+        // male     
+        // male organism
+        // female   
+        // female organism
+        // neutral sex
+        // hermaphrodite
+        // genderfluid
         // transgender female
-        // agender           
-        // t1331922231       
-        // t1300761634       
-        // non-binary        
-        // t1435955685  
+        // agender
+        // t1331922231
+        // t1300761634
+        // non-binary   
+        // t1435955685
     }
 }
 

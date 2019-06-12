@@ -4,9 +4,6 @@
 
 import React, {Component} from 'react'
 import './BarChart.css'
-// import {scaleLinear} from 'd3-scale'
-// import {max} from 'd3-array
-import {axisLeft, axisBottom} from 'd3-axis'
 import PropTypes from 'prop-types'
 import {scaleLinear, scaleBand} from 'd3-scale'
 import Axes from '../Axis/Axes'
@@ -36,11 +33,11 @@ class BarChart extends Component{
                
         const xScale = this.xScale
                         .domain([0, maxValue])
-                        .range([props.margins.left, props.width - props.margins.right])
+                        .range([0, props.width - props.margins.right - props.margins.left])
 
         const ticks ={
-            x: {ticks:[6], tickPadding:12},
-            y: {ticks:[6], tickPadding:12}
+            x: {ticks:[5], tickPadding:6},
+            y: {ticks:[], tickPadding:12}
         }
 
         return (
@@ -56,7 +53,7 @@ class BarChart extends Component{
                             dataModel={props.dataModel}
                         />
 
-                        <Bars
+                        <Bars                            
                             scales={{xScale, yScale}}
                             margins={props.margins}
                             dataModel={props.dataModel}
@@ -66,11 +63,8 @@ class BarChart extends Component{
 
                     </svg>
                     <ReactTooltip 
-                            id='barTooltip'
+                            id='barTooltipBarChart'
                             html={true} 
-                            delayHide={350}
-                            delayShow={300}
-                            delayUpdate={300} 
                             border={true}/>
                 </div>                
             )

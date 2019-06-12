@@ -3,18 +3,15 @@
 
 
 import React, {Component} from 'react'
-import './BarChart.css'
-// import {scaleLinear} from 'd3-scale'
-// import {max} from 'd3-array
-import {axisLeft, axisBottom} from 'd3-axis'
+import './StackedBarChart.css'
 import PropTypes from 'prop-types'
 import {scaleLinear, scaleBand} from 'd3-scale'
 import Axes from '../Axis/Axes'
-import Bars from '../Bars/Bars'
+import StackedBars from '../Bars/StackedBars'
 import ResponsiveWrapper from '../ResponsiveWrapper'
 import ReactTooltip from 'react-tooltip'
 
-class BarChart extends Component{
+class StackedBarChart extends Component{
     constructor(props){        
         super(props)
         this.xScale = scaleLinear()
@@ -27,7 +24,10 @@ class BarChart extends Component{
     render(){
         const props = this.props
         
-        const maxValue = Math.max(...props.dataModel.data.map(d=>props.dataModel.valueFunc(d)))  
+        const maxValue = Math.max(...props.dataModel.data.map(
+                                        // list of values [3, 4, 5] :: [label1, label2, label3]
+                                        d=>props.dataModel.valueFunc(d) 
+                                                .reduce((a,b)=>a+b))) // sum values
                 
         const yScale = this.yScale 
                         .padding([.5])                      
@@ -36,7 +36,7 @@ class BarChart extends Component{
                
         const xScale = this.xScale
                         .domain([0, maxValue])
-                        .range([props.margins.left, props.width - props.margins.right])
+                        .range([0, props.width - props.margins.right - props.margins.left])
 
         const ticks ={
             x: {ticks:[6], tickPadding:12},
@@ -56,7 +56,9 @@ class BarChart extends Component{
                             dataModel={props.dataModel}
                         />
 
-                        <Bars
+                        <StackedBars
+                                                                // #5cb5d8 #61f574 #f17341
+                            colorsVector={['#2a2b83', '#ac4a59', '#5cb5d8', '#61f574', '#f17341']}//['#8D3340', '#E8895B', '#858685', '#A2DA3D', '#38397C', '#10101C']}
                             scales={{xScale, yScale}}
                             margins={props.margins}
                             dataModel={props.dataModel}
@@ -66,25 +68,22 @@ class BarChart extends Component{
 
                     </svg>
                     <ReactTooltip 
-                            id='barTooltip'
+                            id='barTooltipStackedBarChart'
                             html={true} 
-                            delayHide={350}
-                            delayShow={300}
-                            delayUpdate={300} 
                             border={true}/>
                 </div>                
             )
     }
 }
 
-BarChart.defaultProps = {
+StackedBarChart.defaultProps = {
     width: 700,
     height: 1200,
     margins: {top: 50, right: 20, bottom: 100, left: 200 },
     parsPadding: 0.5
 }
 
-BarChart.propTypes ={
+StackedBarChart.propTypes ={
     dataModel: PropTypes.object.isRequired,
     width: PropTypes.number,
     height: PropTypes.number,
@@ -92,4 +91,4 @@ BarChart.propTypes ={
     barsPadding: PropTypes.number
 };
 
-export default ResponsiveWrapper(BarChart);
+export default ResponsiveWrapper(StackedBarChart);

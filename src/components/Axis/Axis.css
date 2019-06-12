@@ -3,9 +3,11 @@
   stroke: #E0E0E0;
 }
 
+.Axis-Band line,
 .Axis-Band path,
-.Axis-Band line  {
-  stroke-opacity: 0.3;
+.Axis-Bottom line,
+.Axis-Bottom path {
+  stroke-opacity: 0 ;
 }
 
 
@@ -14,8 +16,9 @@
   fill: black;
 }
 
-.Axis-Bottom text {
+.Axis-Bottom text{
   transform: rotate(-45deg);
   text-anchor: end;
+  fill: none;
 }
 

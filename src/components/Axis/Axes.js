@@ -2,7 +2,7 @@
 import React from 'react'
 import Axis from './Axis'
 
-export default ({ scales, margins, svgDimensions, ticks, dataModel}) => {
+export default ({minSize, scales, margins, svgDimensions, ticks, dataModel}) => {
 
   const xProps = {
     orient: 'Bottom',
@@ -24,7 +24,7 @@ export default ({ scales, margins, svgDimensions, ticks, dataModel}) => {
 
   return (
     <g>
-      <Axis {...xProps} />
+      {/* <Axis {...xProps} /> uncomment this and set up x-axis*/} 
       <Axis {...yProps} />
     </g>
   )
