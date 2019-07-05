@@ -1,7 +1,16 @@
 {
-  "main.css": "static/css/main.a30c1f74.css",
-  "main.css.map": "static/css/main.a30c1f74.css.map",
-  "main.js": "static/js/main.de120f6a.js",
-  "main.js.map": "static/js/main.de120f6a.js.map",
-  "static/media/logo.svg": "static/media/logo.5d5d9eef.svg"
+  "main.css": "/learn-react-d3/static/css/main.88b701fb.chunk.css",
+  "main.js": "/learn-react-d3/static/js/main.0cb4bd49.chunk.js",
+  "main.js.map": "/learn-react-d3/static/js/main.0cb4bd49.chunk.js.map",
+  "runtime~main.js": "/learn-react-d3/static/js/runtime~main.67f4c20b.js",
+  "runtime~main.js.map": "/learn-react-d3/static/js/runtime~main.67f4c20b.js.map",
+  "static/css/2.c1043ffd.chunk.css": "/learn-react-d3/static/css/2.c1043ffd.chunk.css",
+  "static/js/2.0784f6a1.chunk.js": "/learn-react-d3/static/js/2.0784f6a1.chunk.js",
+  "static/js/2.0784f6a1.chunk.js.map": "/learn-react-d3/static/js/2.0784f6a1.chunk.js.map",
+  "index.html": "/learn-react-d3/index.html",
+  "precache-manifest.703846f0cfd4f148e254dc68a8fe0f93.js": "/learn-react-d3/precache-manifest.703846f0cfd4f148e254dc68a8fe0f93.js",
+  "service-worker.js": "/learn-react-d3/service-worker.js",
+  "static/css/2.c1043ffd.chunk.css.map": "/learn-react-d3/static/css/2.c1043ffd.chunk.css.map",
+  "static/css/main.88b701fb.chunk.css.map": "/learn-react-d3/static/css/main.88b701fb.chunk.css.map",
+  "static/media/logo.svg": "/learn-react-d3/static/media/logo.5d5d9eef.svg"
 }
