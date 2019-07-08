@@ -10,7 +10,7 @@ The result is a Web-Page with some plots, and a repo with many React components.
 
 ## Data
 
-I created a javascript-based [Comics Database]() and I explore it here using SQL to create the data in the format I need. The database contains  instances of Comics Characters from Marvel and DC Universes, extracted from Wikipedia in June 2019. Note that the database is biased towards what was and what was not registered in the Wikipedia by this date.
+I created a javascript-based [Comics Database](https://github.com/heberleh/comics-characters-js-database) and I explore it here using SQL to create the data in the format I need. The database contains  instances of Comics Characters from Marvel and DC Universes, extracted from Wikipedia in June 2019. Note that the database is biased towards what was and what was not registered in the Wikipedia by this date.
 
 ## Vis 1 - Bar Chart
 
