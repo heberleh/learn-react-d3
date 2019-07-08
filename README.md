@@ -24,3 +24,5 @@ Given that there are many characters with registered abilities, I set it to hori
 Then, I adapted the chart to be a Stacked Bar Chart and show the distribution of genders among superabilities.
 
 Visualize here: https://heberleh.github.io/learn-react-d3/
+
+Article: https://towardsdatascience.com/visualizing-comic-characters-genders-and-superpowers-ae7c2311cb89
