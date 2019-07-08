@@ -14,11 +14,12 @@ I created a javascript-based [Comics Database]() and I explore it here using SQL
 
 ## Vis 1 - Bar Chart
 
-In the first time integrating D3 and React I based my coding on this [post](https://medium.com/@caspg/responsive-chart-with-react-and-d3v4-afd717e57583) by Kacper Goliński.
+In the first time integrating D3 and React I coded based on this [post](https://medium.com/@caspg/responsive-chart-with-react-and-d3v4-afd717e57583) by Kacper Goliński.
 
-The data visualized here is a plot representing the number of Super-Abilities per character.
+The data visualized here is a plot representing the number of Superabilities per character.
 Given that there are many characters with registered abilities, I set it to horizontal layout.
 
-## Vis 2 - to-define
+## Vis 2 - Stacked Bar Chart
 
-## Vis 3 - to-define
+Then, I adapted the chart to be a Stacked Bar Chart and show the distribution of genders among superabilities.
+
